@@ -10,4 +10,8 @@ public interface IProductRepository {
     List<Product> findAll();
 
     int insert(InsertProduct product) throws NoSuchPostalCodeException;
+
+    int delete(int id) throws NoSuchPostalCodeException;
+
+    int update(Product product) throws NoSuchPostalCodeException;
 }

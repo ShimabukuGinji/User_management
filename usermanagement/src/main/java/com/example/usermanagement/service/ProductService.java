@@ -19,13 +19,21 @@ public class ProductService implements IProductService {
 
     @Override
     public List<Product> findAll(){
-        var products = productRepository.findAll();
-        return products;
+        return productRepository.findAll();
     }
 
     @Override
     public int insert(InsertProduct product) throws NoSuchPostalCodeException {
-        var result = productRepository.insert(product);
-        return result;
+        return productRepository.insert(product);
+    }
+
+    @Override
+    public int delete(int id) throws NoSuchPostalCodeException {
+        return productRepository.delete(id);
+    }
+
+    @Override
+    public int update(Product product) throws NoSuchPostalCodeException {
+        return productRepository.update(product);
     }
 }

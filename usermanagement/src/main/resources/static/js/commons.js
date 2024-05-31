@@ -1,4 +1,5 @@
 function openModal() {
+    let modal = document.getElementById('modal');
     let gray_out = document.getElementById("fadeLayer");
     gray_out.style.visibility = "visible";
     setTimeout(addClass, 200);

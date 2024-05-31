@@ -10,11 +10,11 @@
     <div id="app">
         <th:block th:insert="common/header"></th:block>
         <div class="btn-area">
-            <div class="btn"><a class="basic-btn regist" href="/insert">新規登録</a></div>
-            <div class="btn"><a class="basic-btn regist" href="category.html">カテゴリ管理</a></div>
+            <th:block th:if="${session.user.role} eq 1"><div class="btn"><a class="basic-btn regist" href="/insert">新規登録</a></div></th:block>
+            <th:block th:if="${session.user.role} eq 1"><div class="btn"><a class="basic-btn regist" href="/category">カテゴリ管理</a></div></th:block>
         </div>
         <p>成功メッセージ</p>
-        <form method="post" action="/menu" class="search-form" th:object="${SearchForm}">
+        <form method="get" action="/search" class="search-form" th:object="${SearchForm}">
             <div class="order">
                 <select name="order" class="base-text">
                     <option value="0">並び替え</option>
@@ -50,7 +50,7 @@
                     <td th:text="${product.name}"></td>
                     <td th:text="${product.price}"></td>
                     <td th:text="${product.category_name}"></td>
-                    <td><a class="detail_btn" th:href="@{product/__${product.id}__}">詳細</a></td>
+                    <td><a class="detail_btn" th:href="@{/detail/__${product.id}__}">詳細</a></td>
                 </tr>
             </tbody>
         </table>

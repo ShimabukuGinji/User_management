@@ -10,5 +10,5 @@ public interface ICategoriesService {
 
     List<Categories> findAll();
 
-
+    String findByName(String name);
 }

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ICategoriesRepository {
     List<Categories> findAll();
+
+    String findByName(String name);
 }

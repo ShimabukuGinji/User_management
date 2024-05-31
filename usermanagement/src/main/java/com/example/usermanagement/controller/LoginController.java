@@ -1,7 +1,5 @@
 package com.example.usermanagement.controller;
 
-import com.example.usermanagement.entity.User;
-import com.example.usermanagement.entity.Menu;
 import com.example.usermanagement.form.LoginForm;
 import com.example.usermanagement.service.IMenuService;
 import com.example.usermanagement.service.IUserService;
@@ -36,8 +34,11 @@ public class LoginController {
 
     @GetMapping("/menu")
     public String menu(Model model){
-        var menu = menuService.findAll();
-        model.addAttribute("menu", menu);
+        if(session.getAttribute("user") == null) {
+            return "redirect:/index";
+        }
+        System.out.println(session.getAttribute("user"));
+        model.addAttribute("menu", menuService.findAll());
         return "menu";
     }
 
@@ -50,6 +51,7 @@ public class LoginController {
         var user = userService.findLogin(loginForm.getLoginId(), loginForm.getPassword());
         if (user != null) {
             session.setAttribute("user", user);
+            model.addAttribute("keyword", null);
             return "redirect:/menu";
         }
         model.addAttribute("error", "IDまたはパスワードが不正です");

@@ -22,7 +22,7 @@ public class ProductRepository implements IProductRepository {
 
     @Override
     public List<Product> findAll() {
-        return jdbcTemplate.query("SELECT * FROM users ORDER BY id",
+        return jdbcTemplate.query("SELECT * FROM products ORDER BY id",
             new DataClassRowMapper<>(Product.class));
     }
 
@@ -39,6 +39,34 @@ public class ProductRepository implements IProductRepository {
                     "INSERT INTO products (product_id, category_id, name, price, description) VALUES(:product_id, :category_id, :name, :price, :description)"
                     , param);
         } catch (Exception e) {
+            throw new NoSuchPostalCodeException();
+        }
+    }
+
+    @Override
+    public int delete(int id) throws NoSuchPostalCodeException {
+        var param = new MapSqlParameterSource();
+        param.addValue("id", id);
+        try {
+            return jdbcTemplate.update("DELETE FROM products WHERE id = :id; ",param);
+        } catch (Exception e) {
+            throw new NoSuchPostalCodeException();
+        }
+    }
+
+    @Override
+    public int update(Product product) throws NoSuchPostalCodeException {
+        var param = new MapSqlParameterSource();
+        param.addValue("id", product.id());
+        param.addValue("product_id", product.product_id());
+        param.addValue("name", product.name());
+        param.addValue("price", product.price());
+        param.addValue("category_id", product.category_id());
+        param.addValue("description", product.description());
+        try {
+            return jdbcTemplate.update("UPDATE products SET product_id = :product_id, category_id = :category_id, name = :name, price = :price, description = :description WHERE id = :id",param);
+        } catch (Exception e) {
+
             throw new NoSuchPostalCodeException();
         }
     }

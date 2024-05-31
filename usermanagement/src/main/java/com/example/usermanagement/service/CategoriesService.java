@@ -16,8 +16,12 @@ public class CategoriesService implements ICategoriesService {
     private ICategoriesRepository categoriesRepository;
     @Override
     public List<Categories> findAll(){
-        var categories = categoriesRepository.findAll();
-        return categories;
+        return categoriesRepository.findAll();
+    }
+
+    @Override
+    public String findByName(String name){
+        return categoriesRepository.findByName(name);
     }
 
 }
